@@ -15,12 +15,18 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+    typeDefs,
+    resolvers,
+    introspection: true, // enables introspection of the schema
+    playground: true, // enables the actual playground
+ });
 
 const app = express();
 server.applyMiddleware({ app });
 
-app.listen(process.env.PORT || 3000, () =>
+const port = process.env.PORT || 3000;
+app.listen({ port }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
 
